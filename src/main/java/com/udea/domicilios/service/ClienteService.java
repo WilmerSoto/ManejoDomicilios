@@ -24,12 +24,6 @@ public class ClienteService {
         return "Cliente con ID "+ id + "eliminado";
     }
 
-    @Transactional
-    public String deleteCedula(String cedula) {
-        dao.deleteByCedula(cedula);
-        return "Cliente con cedula "+ cedula + "eliminado";
-    }
-
     public Iterable<Cliente> list() {
         return dao.findAll();
     }

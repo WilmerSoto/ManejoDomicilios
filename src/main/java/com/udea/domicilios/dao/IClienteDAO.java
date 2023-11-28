@@ -8,5 +8,4 @@ import java.util.Optional;
 @Repository
 public interface IClienteDAO extends CrudRepository<Cliente, Integer> {
     Optional<Cliente> findByCedula(String cedula);
-    void deleteByCedula(String cedula);
 }

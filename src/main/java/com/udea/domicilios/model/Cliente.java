@@ -20,7 +20,7 @@ public class Cliente {
 
     @ApiModelProperty(notes = "Referencia OneToOne al pedido")
     @OneToOne(mappedBy = "idCliente")
-    @JsonIgnoreProperties("idCliente")
+    @JsonIgnoreProperties("cliente")
     private Pedido pedido;
 
     @ApiModelProperty(notes = "Nombre del cliente")

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping(value = "/clientes", produces = {"application/vnd.domicilio.api.v1+json", "application/vnd.domicilio.api.v2+json"})
 @CrossOrigin("*")
 @Api(value = "Sistema de manejo de clientes", description = "Operaciones de clientes")
 public class ClienteController {
@@ -18,7 +18,7 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @ApiOperation(value = "Añadir Cliente")
-    @PostMapping("/save")
+    @PostMapping(value = "/save", produces = "application/json")
     public int save(
             @ApiParam(value = "Guardado de objeto Cliente en BD", required = true)
             @RequestBody Cliente cliente){
@@ -30,21 +30,21 @@ public class ClienteController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Lista encontrada exitosamente")
     })
-    @GetMapping("/listAll")
+    @GetMapping(value = "/listAll", produces = "application/json")
     public Iterable<Cliente> listAllClientes() {
         return clienteService.list();
     }
 
-    @ApiOperation(value = "Listar cliente usando el ID de la BD")
-    @GetMapping(value = "/list/{id}", headers = "API-VERSION=1")
+    @ApiOperation(value = "Listar cliente")
+    @GetMapping(value = "/list/{id}", produces = "application/vnd.domicilio.api.v1+json")
     public Cliente listClienteById(@ApiParam(value = "ID del cliente a retornar", required = true)
                                  @PathVariable("id") int id) {
         Optional<Cliente> cliente = clienteService.listId(id);
         return cliente.orElse(null);
     }
 
-    @ApiOperation(value = "Listar cliente usando cedula ")
-    @GetMapping(value = "/list/{cedula}", headers = "API-VERSION=2")
+    @ApiOperation(value = "Listar cliente usando cedula")
+    @GetMapping(value = "/list/{cedula}", produces = "application/vnd.domicilio.api.v2+json")
     public Cliente listClienteByCedula(@ApiParam(value = "Cedula del cliente a retornar", required = true)
                                      @PathVariable("cedula") String cedula) {
         Optional<Cliente> cliente = clienteService.listCedula(cedula);
@@ -52,21 +52,16 @@ public class ClienteController {
     }
 
     @ApiOperation(value = "Actualizar cliente")
-    @PutMapping("/update")
+    @PutMapping(value = "/update", produces = "application/json")
     public Cliente updateService(@RequestBody Cliente cliente) {
         return clienteService.update(cliente);
     }
 
 
     @ApiOperation(value = "Borrar cliente usando ID de la BD")
-    @DeleteMapping("deleteById/{id}")
+    @DeleteMapping(value = "deleteById/{id}", produces = "application/json")
     public String deleteCliente(@PathVariable int id) {
         return clienteService.delete(id);
     }
 
-    @ApiOperation(value = "Borrar cliente usando cedula")
-    @DeleteMapping("deleteByCedula/{cedula}")
-    public String deleteClienteCedula(@PathVariable String cedula) {
-        return clienteService.deleteCedula(cedula);
-    }
 }
