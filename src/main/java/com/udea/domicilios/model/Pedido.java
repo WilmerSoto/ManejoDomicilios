@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-
 import javax.validation.constraints.NotNull;
 
 
@@ -23,7 +22,7 @@ public class Pedido {
     @OneToOne
     @JsonIgnoreProperties("pedido")
     @JoinColumn(name = "fkIdCliente", referencedColumnName = "idCliente")
-    private Cliente cliente;
+    private Cliente idCliente;
 
     @ApiModelProperty(notes = "Nombre del item pedido")
     @Column(name = "nombreItem", length = 50)
@@ -48,11 +47,11 @@ public class Pedido {
     }
 
     public Cliente getCliente() {
-        return cliente;
+        return idCliente;
     }
 
     public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+        this.idCliente = cliente;
     }
 
     public String getNombreItem() {

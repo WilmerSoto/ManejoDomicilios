@@ -2,11 +2,14 @@ package com.udea.domicilios.service;
 
 import com.udea.domicilios.dao.IClienteDAO;
 import com.udea.domicilios.model.Cliente;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
+@Transactional
 public class ClienteService {
     @Autowired
     private IClienteDAO dao;
